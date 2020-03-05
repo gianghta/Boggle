@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+    # restart: always
+    build: .
+    depends_on:
+      - postgres
+    links:
+      - "postgres:postgres"
+    volumes:
+      - .:/project_boggle
+    env_file: .env
+    environment:
+      - MODE
+      - POSTGRES_HOST=postgres
+    ports:
+      - "8000:8000"
+    command: bash -c "
+        pip install -r requirements/main.txt
+        && python app.py
+      "
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    env_file: .env
+    volumes:
+      - /var/lib/postgresql
+    ports:
+      - "5432:5432"
