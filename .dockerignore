@@ -1,0 +1,9 @@
+.git
+.tox
+.vscode
+.gitignore
+.pre-commit-config.yaml
+.travis.yml
+alembic/versions/**
+README.md
+tox.ini
