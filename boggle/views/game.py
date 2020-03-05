@@ -74,7 +74,7 @@ class Gameplay(HTTPEndpoint):
 
         return {
             **board,
-            "time_left": time_left if time_left else 0,
+            "time_left": time_left if time_left > 0 else 0,
         }
 
     @serialize_response(model="Board")
