@@ -80,4 +80,49 @@ After running the application, the API documentation will be available at http:/
   rspec
   ```
 
-  
+## Explanation
+
+#### 1. [Docker](https://www.docker.com/)
+  - Used for environment isolation and deployment container
+
+#### 2. [Tox + Travis CI](https://travis-ci.org/)
+  - Used for setting up dev environment, test environment
+  - Check code style and pre-commit
+  - Integrating CI/CD
+
+#### 3. [Poetry](https://python-poetry.org/)
+  - Package manager of the project
+
+#### 4. [Alembic](https://alembic.sqlalchemy.org/en/latest/)
+  - Database migration tool
+
+#### 5. Schema ([Marshmallow](https://marshmallow.readthedocs.io/en/stable/))
+  * Used for data validation and data serialization from input and output source
+  * Created 3 schemas Get/Write/Out:
+    1. Get: Validate input to query from database model
+    2. Write: Serialize and validate data from client request that meant to change or add data into database, preventing unwanted modification
+    3. Out: Serialize and filter data before returning to client
+
+#### 6. function ```validate_request```
+  - A decorator used to load `body`, `path`, `params` and query params from request to validate required attributes, using `READ` schema
+
+    ```
+    @validate_request(model="Board", method="Read")
+      async def get(self, *args, path_params=None, body=None, query_params=None, **kwargs):
+    ```
+#### 7. function ```serialize_output```
+  - A decorator used to serialize output before returning response to client
+
+    ```
+    @serialize_response(model="Board", status_code=201)
+      async def create_game(request):
+    ```
+
+#### 8. function ```authenticate```
+  - A decorator used to check of matching token and ID number for correct return data, using `path_params` and `body` returned by `validate_request`
+
+    ```
+    @validate_request(model="Board", method="Read")
+    @authenticate
+      async def put(self, *args, path_params, body, **kwargs):
+    ```
