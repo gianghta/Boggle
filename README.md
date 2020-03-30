@@ -127,3 +127,6 @@ After running the application, the API documentation will be available at http:/
     @authenticate
       async def put(self, *args, path_params, body, **kwargs):
     ```
+
+## License
+Under MIT License.
