@@ -8,7 +8,7 @@ gino==0.8.6
 h11==0.9.0
 httptools==0.1.1; sys_platform != "win32" and sys_platform != "cygwin" and platform_python_implementation != "PyPy"
 immutables==0.11; python_version < "3.7"
-mako==1.1.2
+mako==1.2.2
 markupsafe==1.1.1
 marshmallow==3.5.0
 psycopg2-binary==2.8.4
